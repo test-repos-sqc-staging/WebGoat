@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -58,7 +59,8 @@ public class ProfileZipSlip extends ProfileUploadBase {
 
   @SneakyThrows
   private AttackResult processZipUpload(MultipartFile file) {
-    var tmpZipDirectory = Files.createTempDirectory(getWebSession().getUserName());
+    var tmpBaseDirectory = Files.createDirectories(Paths.get(getWebGoatHomeDirectory(), "tmp"));
+    var tmpZipDirectory = Files.createTempDirectory(tmpBaseDirectory, getWebSession().getUserName());
     cleanupAndCreateDirectoryForUser();
     var currentImage = getProfilePictureAsBase64();
 
