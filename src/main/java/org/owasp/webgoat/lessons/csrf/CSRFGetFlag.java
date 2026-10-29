@@ -39,6 +39,7 @@ public class CSRFGetFlag {
 
   @Autowired UserSessionData userSessionData;
   @Autowired private PluginMessages pluginMessages;
+  private final Random random = new Random();
 
   @PostMapping(
       path = "/csrf/basic-get-flag",
@@ -54,13 +55,11 @@ public class CSRFGetFlag {
 
     if (referer.equals("NULL")) {
       if ("true".equals(req.getParameter("csrf"))) {
-        Random random = new Random();
         userSessionData.setValue("csrf-get-success", random.nextInt(65536));
         response.put("success", true);
         response.put("message", pluginMessages.getMessage("csrf-get-null-referer.success"));
         response.put("flag", userSessionData.getValue("csrf-get-success"));
       } else {
-        Random random = new Random();
         userSessionData.setValue("csrf-get-success", random.nextInt(65536));
         response.put("success", true);
         response.put("message", pluginMessages.getMessage("csrf-get-other-referer.success"));
@@ -71,7 +70,6 @@ public class CSRFGetFlag {
       response.put("message", "Appears the request came from the original host");
       response.put("flag", null);
     } else {
-      Random random = new Random();
       userSessionData.setValue("csrf-get-success", random.nextInt(65536));
       response.put("success", true);
       response.put("message", pluginMessages.getMessage("csrf-get-other-referer.success"));
