@@ -11,9 +11,9 @@ input.addEventListener('keyup', function (e) {
 
 function search(arg) {
       var elementId = null;
-      lessons = document.querySelectorAll('[class="lesson"]');
+      const lessons = document.querySelectorAll('[class="lesson"]');
       lessons.forEach(function(lesson) {
-        lessonLowerCase = lesson.textContent.toLowerCase();
+        const lessonLowerCase = lesson.textContent.toLowerCase();
         if (arg.length>2 && lessonLowerCase.includes(arg.toLowerCase())) {
             if (arg.length<7 && arg.toLowerCase().includes('sql')) {
                 elementId = 'A3Injection-SQLInjectionintro';
@@ -32,7 +32,7 @@ function search(arg) {
 
       if (elementId != null) {
         document.getElementById(elementId).click();
-        categoryId = elementId.substring(0,elementId.indexOf("-"));
+        const categoryId = elementId.substring(0,elementId.indexOf("-"));
         //extra click to make sure menu does not disappear on same category search
         if (categoryId == 'Challenges') {
             document.querySelectorAll('[category="Introduction"]')[0].click();
